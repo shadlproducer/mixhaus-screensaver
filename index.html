@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Screen Video</title>
+    <style>
+        /* Remove margins and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background-color: black;
+        }
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the video fills the screen */
+        }
+    </style>
+</head>
+<body>
+    <!-- Video File -->
+    <video id="video" autoplay muted loop playsinline>
+        <source src="https://www.dropbox.com/scl/fi/z15lknw9al7t5yjhteczp/MixHaus-ScreenSaver-Holiday-Version.mov?rlkey=p5adgppsv7jsbv9rlbvnip1e0&st=t74bfoae&raw=1" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- JavaScript to trigger full screen -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const video = document.getElementById('video');
+
+            // Function to request full-screen mode
+            function enterFullScreen() {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) { /* Safari */
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) { /* IE11 */
+                    video.msRequestFullscreen();
+                }
+            }
+
+            // Automatically enter full-screen
+            video.play();
+            enterFullScreen();
+
+            // Retry full-screen on user interaction (in case autoplay is blocked)
+            document.body.addEventListener('click', () => {
+                video.play();
+                enterFullScreen();
+            });
+        });
+    </script>
+</body>
+</html>
